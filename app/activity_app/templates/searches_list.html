@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Búsquedas{% endblock %}
+
+{% block content %}
+<h2>Historial de Búsquedas</h2>
+
+{% if busquedas and busquedas|length > 0 %}
+<ul class="list-group">
+    {% for b in busquedas %}
+    <li class="list-group-item">
+        <strong>{{ b.get('query') or b.get('termino') or '—' }}</strong>
+        <small class="text-muted"> — {{ b.get('timestamp') or b.get('fecha') or '—' }}</small>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<div class="alert alert-secondary">No hay búsquedas registradas.</div>
+{% endif %}
+{% endblock %}

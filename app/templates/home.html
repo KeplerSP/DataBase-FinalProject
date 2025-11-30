@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio - Streaming Platform{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="display-5">Bienvenido al proyecto Streaming Platforms</h1>
+    <p class="lead">FastAPI + Motor + Jinja2 — estructura mínima lista para desarrollar.</p>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action" href="/users">Gestión de Usuarios</a>
+                <a class="list-group-item list-group-item-action" href="/content">Catálogo de Contenido</a>
+                <a class="list-group-item list-group-item-action" href="/activity">Actividad y métricas</a>
+                <a class="list-group-item list-group-item-action" href="/dashboard">Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

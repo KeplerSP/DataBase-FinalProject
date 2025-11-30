@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Catálogo de Contenido{% endblock %}
+
+{% block content %}
+<h2>Catálogo</h2>
+
+{% if contenidos and contenidos|length > 0 %}
+<div class="row">
+    {% for c in contenidos %}
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ c.get('title') or c.get('titulo') or 'Sin título' }}</h5>
+                <p class="card-text">
+                    Año: {{ c.get('year') or c.get('anio') or '—' }}<br>
+                    Géneros: {{ c.get('genres') | join(', ') if c.get('genres') else (c.get('genero') or '—') }}
+                </p>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn btn-sm btn-outline-primary">Ver</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info">No hay contenido registrado.</div>
+{% endif %}
+{% endblock %}

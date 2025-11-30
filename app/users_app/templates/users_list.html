@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Listado de Usuarios{% endblock %}
+
+{% block content %}
+<h2>Listado de Usuarios</h2>
+
+{% if usuarios and usuarios|length > 0 %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Region</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in usuarios %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ u.get('nombre') or u.get('username') or u.get('name') or '—' }}</td>
+                <td>{{ u.get('email') or '—' }}</td>
+                <td>{{ u.get('region') or u.get('region_id') or '—' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-warning">No hay usuarios para mostrar.</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+/* app/static/css/styles.css */
+body {
+    background: #f8f9fa;
+}
+
+.navbar-brand {
+    font-weight: 700;
+}
+
+.card h5 {
+    margin-bottom: 0.5rem;
+}
+
+.main-footer {
+    padding: 1rem 0;
+    text-align: center;
+    color: #666;
+}
