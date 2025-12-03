@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro - FISI Streaming{% endblock %}
+
+{% block content %}
+<style>
+    body { background-color: #141414; color: white; }
+    .register-card {
+        background-color: rgba(0, 0, 0, 0.75); border-radius: 8px; padding: 50px 40px;
+        border: 1px solid #333; max-width: 450px; margin: 0 auto;
+    }
+    .form-control { background: #333; border: none; color: #fff; height: 50px; margin-bottom: 1rem; }
+    .form-control:focus { background: #454545; color: #fff; border-bottom: 2px solid #e50914; }
+    .btn-register { background-color: #e50914; color: white; font-weight: bold; width: 100%; padding: 12px; }
+</style>
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+    <div class="register-card w-100">
+        <h2 class="mb-4 fw-bold">Crear Cuenta</h2>
+        
+        <form action="/users/register" method="post">
+            <div>
+                <input type="text" class="form-control" name="name" placeholder="Nombre completo" required>
+            </div>
+            <div>
+                <input type="email" class="form-control" name="email" placeholder="Correo electrónico" required>
+            </div>
+            <div>
+                <input type="password" class="form-control" name="password" placeholder="Contraseña" required>
+            </div>
+            
+            <button type="submit" class="btn btn-register">Registrarse</button>
+
+            {% if error %}
+                <div class="alert alert-danger mt-3 small bg-transparent text-danger border-danger">
+                    {{ error }}
+                </div>
+            {% endif %}
+        </form>
+        
+        <div class="mt-4 text-white-50 small">
+            ¿Ya tienes cuenta? 
+            <a href="/users/login" class="text-white text-decoration-none fw-bold ms-1">Inicia sesión</a>.
+        </div>
+    </div>
+</div>
+{% endblock %}

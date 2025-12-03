@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
-{% block title %}Usuarios{% endblock %}
+{% block title %}Usuarios 👤{% endblock %}
 
 {% block content %}
-<h2>Usuarios</h2>
-<p>Página principal del módulo de usuarios.</p>
-<p><a class="btn btn-primary" href="/users/all">Listar usuarios</a></p>
+<div class="card p-4 shadow-lg">
+    <h2 class="mb-3">👥 Gestión de Usuarios</h2>
+    <p>Administra, crea y revisa información de los usuarios del sistema.</p>
+
+    <a href="/users/all" class="btn btn-warning mt-3 fw-bold">📋 Ver lista de usuarios</a>
+</div>
 {% endblock %}
+

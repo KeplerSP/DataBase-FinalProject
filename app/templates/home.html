@@ -3,19 +3,119 @@
 {% block title %}Inicio - Streaming Platform{% endblock %}
 
 {% block content %}
-<div class="text-center">
-    <h1 class="display-5">Bienvenido al proyecto Streaming Platforms</h1>
-    <p class="lead">FastAPI + Motor + Jinja2 — estructura mínima lista para desarrollar.</p>
+<style>
+    body { background-color: #141414; color: #fff; }
+    .hero-section {
+        padding: 5rem 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.8), #141414), url('https://source.unsplash.com/random/1920x1080/?cinema,movie');
+        background-size: cover;
+        background-position: center;
+        border-radius: 0 0 20px 20px;
+        margin-bottom: 2rem;
+    }
+    .card-custom {
+        background-color: #2f2f2f;
+        border: none;
+        transition: transform 0.3s ease;
+        border-radius: 12px;
+    }
+    .card-custom:hover { transform: translateY(-10px); background-color: #404040; }
+    .card-body { color: white; }
+    .icon-large { font-size: 3rem; margin-bottom: 1rem; color: #e50914; }
+    .btn-netflix {
+        background-color: #e50914; color: white; border: none; padding: 10px 30px; font-weight: bold;
+    }
+    .btn-netflix:hover { background-color: #b20710; color: white; }
+    .btn-outline-netflix {
+        background-color: transparent; border: 2px solid #e50914; color: white; padding: 10px 30px; font-weight: bold;
+    }
+    .btn-outline-netflix:hover { background-color: #e50914; color: white; }
+</style>
 
-    <div class="row justify-content-center mt-4">
-        <div class="col-md-8">
-            <div class="list-group">
-                <a class="list-group-item list-group-item-action" href="/users">Gestión de Usuarios</a>
-                <a class="list-group-item list-group-item-action" href="/content">Catálogo de Contenido</a>
-                <a class="list-group-item list-group-item-action" href="/activity">Actividad y métricas</a>
-                <a class="list-group-item list-group-item-action" href="/dashboard">Dashboard</a>
+<div class="container-fluid p-0">
+    
+    <!-- PORTADA -->
+    <div class="hero-section text-center">
+        <h1 class="display-3 fw-bold mb-3">FISI Streaming</h1>
+        
+        {% if not user %}
+            <p class="lead mb-4 text-white-50">Disfruta del mejor contenido. Inicia sesión o regístrate.</p>
+            <div class="mt-4">
+                <a href="/users/login" class="btn btn-netflix btn-lg shadow-lg me-3">Iniciar Sesión</a>
+                <a href="/users/register" class="btn btn-outline-netflix btn-lg shadow-lg">Registrarse</a>
+            </div>
+        {% else %}
+            <div class="mt-4">
+                <span class="badge bg-success p-2 fs-6">
+                    Hola, {{ user.name }} ({{ user.role }})
+                </span>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- PANEL DE CONTROL -->
+    {% if user %}
+    <div class="container pb-5">
+        <h3 class="mb-4 border-start border-4 border-danger ps-3">Tu Panel</h3>
+        <div class="row g-4 justify-content-center">
+            
+            <!-- SI ES ADMIN: Ve Usuarios -->
+            {% if user.role == 'admin' %}
+            <div class="col-md-6 col-lg-3">
+                <a href="/users/all" class="text-decoration-none">
+                    <div class="card card-custom h-100 text-center p-4">
+                        <div class="card-body">
+                            <div class="icon-large"><i class="bi bi-people-fill"></i></div>
+                            <h5 class="card-title">Usuarios</h5>
+                            <p class="text-white-50 small">Gestión total</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+
+            <!-- TODOS: Ven Contenido -->
+            <div class="col-md-6 col-lg-3">
+                <a href="/content" class="text-decoration-none">
+                    <div class="card card-custom h-100 text-center p-4">
+                        <div class="card-body">
+                            <div class="icon-large"><i class="bi bi-play-circle-fill"></i></div>
+                            <h5 class="card-title">Contenido</h5>
+                            <p class="text-white-50 small">Ver catálogo</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- SI ES ADMIN: Ve Métricas -->
+            {% if user.role == 'admin' %}
+            <div class="col-md-6 col-lg-3">
+                <a href="/activity" class="text-decoration-none">
+                    <div class="card card-custom h-100 text-center p-4">
+                        <div class="card-body">
+                            <div class="icon-large"><i class="bi bi-bar-chart-fill"></i></div>
+                            <h5 class="card-title">Métricas</h5>
+                            <p class="text-white-50 small">Estadísticas</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+
+             <!-- TODOS: Salir -->
+             <div class="col-md-6 col-lg-3">
+                <a href="/users/logout" class="text-decoration-none">
+                    <div class="card card-custom h-100 text-center p-4" style="border: 1px solid #e50914;">
+                        <div class="card-body">
+                            <div class="icon-large text-white"><i class="bi bi-box-arrow-right"></i></div>
+                            <h5 class="card-title">Cerrar Sesión</h5>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
+    {% endif %}
+
 </div>
 {% endblock %}

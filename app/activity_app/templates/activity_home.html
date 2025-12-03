@@ -1,10 +1,83 @@
 {% extends 'base.html' %}
-{% block title %}Actividad{% endblock %}
+{% block title %}📊 Panel de Actividad{% endblock %}
 
 {% block content %}
-<h2>Actividad</h2>
-<ul>
-    <li><a href="/activity/searches">Búsquedas</a></li>
-    <li><a href="/activity/likes">Likes</a></li>
-</ul>
+<div class="container py-4">
+
+    <h1 class="mb-4 text-center">🚀 Panel de Actividad</h1>
+
+    <!-- Tarjetas principales -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">🔍 Búsquedas</h5>
+                    <p class="card-text">Ver historial completo de búsquedas realizadas por los usuarios.</p>
+                    <a href="/activity/searches" class="btn btn-light btn-sm">Ir a Búsquedas</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">❤️ Likes</h5>
+                    <p class="card-text">Revisa qué contenido fue marcado como favorito por los usuarios.</p>
+                    <a href="/activity/likes" class="btn btn-light btn-sm">Ir a Likes</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-warning mb-3 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">🎬 Reproducciones</h5>
+                    <p class="card-text">Historial de contenido reproducido por los usuarios.</p>
+                    <a href="/activity/plays" class="btn btn-light btn-sm">Ver Reproducciones</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-danger mb-3 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">💬 Comentarios</h5>
+                    <p class="card-text">Revisa las interacciones y comentarios recientes de los usuarios.</p>
+                    <a href="/activity/comments" class="btn btn-light btn-sm">Ver Comentarios</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Últimos usuarios activos -->
+    <div class="card mb-4 shadow">
+        <div class="card-header bg-info text-white">
+            🏃 Últimos Usuarios Activos
+        </div>
+        <div class="card-body">
+            <table class="table table-dark table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Usuario</th>
+                        <th>Última conexión</th>
+                        <th>Total de actividad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in usuarios_activos %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ u.name }}</td>
+                        <td>{{ u.last_login }}</td>
+                        <td>{{ u.activity_count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
 {% endblock %}
+

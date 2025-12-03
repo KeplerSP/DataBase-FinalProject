@@ -2,28 +2,123 @@
 {% block title %}Catálogo de Contenido{% endblock %}
 
 {% block content %}
-<h2>Catálogo</h2>
+<div class="container mt-4">
+    <h2 class="mb-4">Catálogo</h2>
 
-{% if contenidos and contenidos|length > 0 %}
-<div class="row">
-    {% for c in contenidos %}
-    <div class="col-md-4 mb-3">
-        <div class="card h-100">
-            <div class="card-body">
-                <h5 class="card-title">{{ c.get('title') or c.get('titulo') or 'Sin título' }}</h5>
-                <p class="card-text">
-                    Año: {{ c.get('year') or c.get('anio') or '—' }}<br>
-                    Géneros: {{ c.get('genres') | join(', ') if c.get('genres') else (c.get('genero') or '—') }}
-                </p>
-            </div>
-            <div class="card-footer">
-                <a href="#" class="btn btn-sm btn-outline-primary">Ver</a>
+    {% if contenidos and contenidos|length > 0 %}
+    <div class="row">
+        {% for c in contenidos %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+
+                {# ---------------------------- IMAGEN ---------------------------- #}
+                {# Usamos la propiedad image_file generada en services.py y el endpoint del router #}
+                {% if c.image_file %}
+                    <img src="{{ url_for('content.image', filename=c.image_file) }}" 
+                         class="card-img-top" 
+                         alt="{{ c.get('title') }}"
+                         style="height: 250px; object-fit: cover;">
+                {% else %}
+                    <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 250px;">
+                        <span>Sin Imagen</span>
+                    </div>
+                {% endif %}
+
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">
+                        {{ c.get('title') or c.get('titulo') or 'Sin título' }}
+                    </h5>
+
+                    <p class="card-text">
+                        {# ------------------------------ TIPO ------------------------------ #}
+                        {% set tipo = c.get('tipo') or c.get('type') %}
+                        {% if tipo %}
+                            <strong>Tipo:</strong> {{ tipo }}<br>
+                        {% endif %}
+
+                        {# --------------------------- DESCRIPCIÓN --------------------------- #}
+                        {% set desc = c.get('descripcion') or c.get('description') %}
+                        {% if desc %}
+                            <strong>Descripción:</strong> {{ desc | truncate(100) }}<br>
+                        {% endif %}
+
+                        {# ----------------------------- AÑO ------------------------------- #}
+                        {% set anio = c.get('year') or c.get('anio') or c.get('año') %}
+                        {% if anio %}
+                            <strong>Año:</strong> {{ anio }}<br>
+                        {% endif %}
+
+                        {# ---------------------------- GÉNEROS ---------------------------- #}
+                        {% set g1 = c.get('genres') %}
+                        {% set g2 = c.get('generos') %}
+                        {% set g3 = c.get('genero') %}
+                        {% if g1 or g2 or g3 %}
+                            <strong>Géneros:</strong>
+                            {% if g1 %}
+                                {{ g1 | join(', ') }}
+                            {% elif g2 %}
+                                {% if g2 is string %}
+                                    {{ g2 }}
+                                {% else %}
+                                    {{ g2 | join(', ') }}
+                                {% endif %}
+                            {% else %}
+                                {{ g3 }}
+                            {% endif %}
+                            <br>
+                        {% endif %}
+
+                        {# ----------------------------- DURACIÓN -------------------------- #}
+                        {% set dur = c.get('duracion') or c.get('duration') %}
+                        {% if dur %}
+                            <strong>Duración:</strong> {{ dur }}<br>
+                        {% endif %}
+
+                        {# ---------------------------- TEMPORADAS ------------------------- #}
+                        {% set temp = c.get('temporadas') or c.get('seasons') %}
+                        {% if temp %}
+                            <strong>Temporadas:</strong>
+
+                            {% if temp is string or temp is number %}
+                                {{ temp }}
+
+                            {% elif temp is mapping %}
+                                {{ temp.get('numero') or temp.get('number') }}
+
+                            {% elif temp is sequence %}
+                                {{ temp|length }} temporada{{ 's' if temp|length > 1 else '' }}
+                                <ul class="mb-0 mt-1 small text-muted">
+                                    {% for s in temp %}
+                                    <li>
+                                        Temporada {{ s.get('numero') or s.get('number') or loop.index }}:
+                                        {% if s.get('episodios') %}
+                                            {{ s.get('episodios') | length }} episodios
+                                        {% elif s.get('episodes') %}
+                                            {{ s.get('episodes') | length }} episodios
+                                        {% endif %}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+
+                            {% else %}
+                                {{ temp }}
+                            {% endif %}
+                            <br>
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="card-footer bg-white border-top-0">
+                    <a href="#" class="btn btn-primary btn-block">Ver Detalles</a>
+                </div>
+
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+
+    {% else %}
+    <div class="alert alert-info">No hay contenido registrado.</div>
+    {% endif %}
 </div>
-{% else %}
-<div class="alert alert-info">No hay contenido registrado.</div>
-{% endif %}
 {% endblock %}

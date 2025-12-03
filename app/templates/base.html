@@ -1,30 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}Streaming Platform{% endblock %}</title>
+    <meta charset="UTF-8">
+    <title>{% block title %}FISI Streaming{% endblock %}</title>
 
-    <!-- Bootstrap (CDN rápido para prototipo) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- BOOTSTRAP -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    >
 
-    <!-- Tu CSS -->
-    <link rel="stylesheet" href="/static/css/styles.css" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #673ab7, #512da8);
+            color: white;
+            min-height: 100vh;
+        }
 
-    {% block head %}{% endblock %}
+        .navbar {
+            background: rgba(0,0,0,0.25);
+            backdrop-filter: blur(10px);
+        }
+
+        .card {
+            border-radius: 15px;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #ddd;
+        }
+    </style>
 </head>
-
 <body>
-    {% include 'partials/navbar.html' %}
 
-    <main class="container py-4">
-        {% block content %}{% endblock %}
-    </main>
+<nav class="navbar navbar-expand-lg navbar-dark px-4">
+    <a class="navbar-brand fw-bold" href="/">🎬 FISI Streaming</a>
 
-    <!-- Bootstrap JS (opcional para componentes) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    {% block scripts %}{% endblock %}
+    <div class="navbar-nav">
+        <a class="nav-link" href="/users/">👤 Usuarios</a>
+        <a class="nav-link" href="/content/">🎞️ Contenido</a>
+        <a class="nav-link" href="/activity/">📊 Actividad</a>
+        
+    </div>
+</nav>
+
+<div class="container py-5">
+    {% block content %}{% endblock %}
+</div>
+
+<footer>
+    <p>✨ Proyecto académico — UNMSM ✨</p>
+</footer>
+
 </body>
-
 </html>

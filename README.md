@@ -15,7 +15,7 @@ pip install -r requirements.txt
 ```
 ### 3. Ejecutar servidor
 ```bash
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
 
 # División del Proyecto

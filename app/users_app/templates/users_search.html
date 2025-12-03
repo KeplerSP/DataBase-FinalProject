@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Buscar usuarios{% endblock %}
+
+{% block content %}
+<h2>Buscar usuarios</h2>
+
+<form action="/users/search" method="post" class="mb-3">
+    <input class="form-control" type="text" name="query" placeholder="Nombres..." required>
+    <button class="btn btn-primary mt-2" type="submit">Buscar</button>
+</form>
+
+{% if results %}
+<h3>Resultados para "{{ query }}"</h3>
+<ul class="list-group">
+    {% for user in results %}
+    <li class="list-group-item">
+        {{ user.name }} — {{ user.email }}
+        <a class="btn btn-sm btn-danger float-end" href="/users/{{ user._id }}/disable">Desactivar</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

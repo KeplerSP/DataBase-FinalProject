@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Confirmar Activación ✅{% endblock %}
+
+{% block content %}
+<div class="card p-4 shadow-lg">
+    <h2>✅ Confirmar Activación de Usuario</h2>
+    <p>Vas a activar al usuario <strong>{{ user.name }}</strong> ({{ user.email }}).</p>
+    <p>Para confirmar, ingresa tu <strong>correo de admin</strong>:</p>
+
+    <form action="/users/{{ user._id }}/activate" method="post">
+        <div class="mb-3">
+            <label class="form-label">Tu correo:</label>
+            <input type="email" name="admin_email" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success">Confirmar Activación</button>
+        <a href="/users/all" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
